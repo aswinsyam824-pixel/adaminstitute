@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ADAM Institute</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="ADAM Institute of Management and Technology — management and information technology education with a practical purpose.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: Agroton-style editorial page. 120px side margins on desktop, rounded photo panels,
+   a label column + content column grid, navy band, gold cards. Single light look by design. */
+:root{
+  color-scheme:light;
+  --bg:#F7F5EF;          /* warm ivory */
+  --panel:#EFEBE1;       /* beige section panel */
+  --white:#FFFFFF;
+  --ink:#0D2240;         /* crest navy */
+  --ink-soft:#8C93A1;    /* two-tone heading grey */
+  --muted:#6B7280;
+  --line:rgba(13,34,64,.10);
+  --navy:#0D2240;
+  --navy-2:#162F55;
+  --maroon:#7A0C1E;
+  --gold:#E2AE4B;
+  --gold-soft:#F8E3AE;
+  --font:"Onest","Helvetica Neue",Arial,sans-serif;
+  --side:120px;
+  --r-xl:28px; --r-lg:20px; --r-md:14px;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-weight:500;letter-spacing:-.02em;text-wrap:balance}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:10px}
+
+.container{max-width:calc(1200px + 2*var(--side));margin-inline:auto;
+  padding-left:max(var(--side),env(safe-area-inset-left,0px));padding-right:max(var(--side),env(safe-area-inset-right,0px))}
+.sec{padding-block:80px}
+.soft{color:var(--ink-soft)}
+
+/* small brand label used at the left of each section (as in the reference) */
+.label{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.label img{width:16px;height:auto}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:14px;min-height:48px;padding:4px 4px 4px 22px;border-radius:999px;background:var(--navy);color:#fff;
+  font:500 15px var(--font);text-decoration:none;border:0;cursor:pointer;transition:background-color .25s}
+.btn .arr{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--navy);display:grid;place-items:center;transition:transform .3s}
+.btn:hover{background:var(--navy-2)}
+.btn:hover .arr{transform:rotate(-45deg)}
+.circle{flex:none;width:40px;height:40px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;transition:transform .3s}
+a:hover > .circle, a:hover .circle{transform:rotate(-45deg)}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-size:12.5px;font-weight:500;background:rgba(255,255,255,.9);color:var(--ink);white-space:nowrap}
+.pill i{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+/* ───── Header ───── */
+.header{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:50;background:transparent;transition:background-color .3s,box-shadow .3s}
+.header.scrolled{background:rgba(247,245,239,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(13,34,64,.08)}
+.header:not(.scrolled) .nav{background:rgba(255,255,255,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:rgba(255,255,255,.6)}
+.header .container{display:flex;align-items:center;gap:24px;min-height:84px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.logo img{height:40px;width:auto}
+.logo b{font-weight:600;font-size:19px;letter-spacing:.08em;display:block;line-height:1}
+.logo small{display:block;font-size:10px;color:var(--muted);letter-spacing:.04em;margin-top:3px;line-height:1.2}
+.nav{margin-inline:auto;display:flex;align-items:center;gap:4px;padding:5px;background:var(--white);border-radius:999px;border:1px solid var(--line)}
+.nav a{font-size:14px;text-decoration:none;color:var(--ink);padding:8px 14px;border-radius:999px;transition:background-color .2s}
+.nav a:hover{background:var(--bg)}
+.nav a[aria-current="page"]{background:var(--navy);color:#fff}
+.header .btn{min-height:44px;font-size:14px;padding-left:18px}
+.header .btn .arr{width:36px;height:36px}
+.menu-btn{display:none;margin-left:auto;align-items:center;gap:10px;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:var(--white);color:var(--ink);font:500 15px var(--font);cursor:pointer}
+.menu-btn span{display:grid;gap:4px}.menu-btn span i{display:block;width:16px;height:1.6px;background:currentColor}
+.drawer{position:absolute;left:20px;right:20px;top:calc(100% + 4px);background:var(--white);border-radius:var(--r-lg);border:1px solid var(--line);padding:8px;box-shadow:0 20px 40px -20px rgba(13,34,64,.3)}
+.drawer a{display:flex;align-items:center;min-height:48px;padding:0 14px;border-radius:12px;text-decoration:none;font-size:16px}
+.drawer a:hover,.drawer a[aria-current="page"]{background:var(--bg)}
+
+/* ───── Hero ───── */
+.hero{position:relative;overflow:hidden;min-height:max(760px,100vh);display:flex;flex-direction:column;justify-content:space-between;
+  padding-block:156px 48px;padding-inline:max(var(--side),calc((100% - 1200px)/2));isolation:isolate;background:#cfd8cf}
+.hero-spacer{flex:1}
+.hero > video.bg,.hero > img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(247,245,239,.35) 0%,rgba(247,245,239,0) 18%),linear-gradient(90deg,rgba(247,245,239,.94) 0%,rgba(247,245,239,.8) 34%,rgba(247,245,239,0) 62%)}
+.hero h1 .soft{color:#5E6B80}
+.hero-main{display:flex;flex-direction:column;align-items:flex-start;text-align:left;margin-top:80px}
+@media (max-width:767px){.hero-main{margin-top:0}}
+.hero h1{font-size:56px;line-height:60px;letter-spacing:-.03em;max-width:640px}
+.hero-text{margin-top:18px;font-size:16px;line-height:1.6;color:#3F4A5C;max-width:440px}
+.hero-cta{margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:12px}
+.hero-cta .pill{background:rgba(255,255,255,.8)}
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-top:40px;flex:1;align-content:flex-end}
+.hero-link{display:inline-flex;align-items:center;gap:10px;color:#fff;font-size:14px;font-weight:500;text-decoration:none;padding:10px 16px 10px 10px;border-radius:999px;background:rgba(13,34,64,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.hero-link .circle{width:30px;height:30px;background:#fff}
+.hero-card{width:290px;flex:none;border-radius:var(--r-lg);background:rgba(13,34,64,.92);color:#fff;padding:12px;text-decoration:none;display:grid;gap:12px;box-shadow:0 30px 60px -30px rgba(0,0,0,.5)}
+.hero-card .top{display:flex;gap:12px;align-items:flex-start;padding:6px 4px 0 6px}
+.hero-card p{font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.78)}
+.hero-card b{display:block;font-weight:500;font-size:14px;color:#fff;margin-bottom:4px}
+.hero-card .circle{width:34px;height:34px;background:#fff}
+.hero-card img{border-radius:12px;height:130px;width:100%;object-fit:cover;object-position:center 30%}
+
+/* ───── Intro statement row ───── */
+.intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start}
+.intro-left{grid-column:1/span 3;display:grid;gap:40px}
+.intro-left > img,.intro-right img{border-radius:var(--r-md);width:100%;max-width:150px;aspect-ratio:3/2;object-fit:cover}
+.intro-text{grid-column:4/span 7;font-size:28px;line-height:1.3;letter-spacing:-.015em}
+.intro-right{grid-column:11/span 2;justify-self:end;padding-top:6px}
+
+/* ───── Section heads: label col + heading col ───── */
+.head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start;margin-bottom:40px}
+.head .label{grid-column:1/span 3;padding-top:10px}
+.head h2{grid-column:4/span 6;font-size:32px;line-height:38px}
+.head .aside{grid-column:10/span 3;font-size:13px;line-height:1.5;color:var(--muted)}
+
+/* ───── Learning focus (product-card style) ───── */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:var(--white);border-radius:var(--r-lg);padding:10px 10px 20px;text-decoration:none;display:flex;flex-direction:column;gap:18px;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.card:hover{transform:translateY(-4px);box-shadow:0 24px 40px -28px rgba(13,34,64,.35)}
+.card .ph{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/3}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.card:hover .ph img{transform:scale(1.05)}
+.card .ph .pill{position:absolute;left:10px;top:10px}
+.card .row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding-inline:10px}
+.card h3{font-size:20px;line-height:1.25}
+.card p{font-size:13.5px;line-height:1.5;color:var(--muted);margin-top:6px}
+.after{margin-top:32px;display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px}
+.after p{font-size:13.5px;color:var(--muted);max-width:560px;line-height:1.5}
+
+/* ───── Who it is for (dark band) ───── */
+.band{background:var(--navy);border-radius:var(--r-xl);padding:40px;display:grid;grid-template-columns:minmax(0,1.15fr) repeat(3,minmax(0,1fr));gap:16px;color:#fff}
+.band-text{display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:8px 16px 8px 8px}
+.band-text h2{font-size:28px;line-height:1.25}
+.band-text h2 span{color:rgba(255,255,255,.55)}
+.band-text p{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.65)}
+.band-text p mark{background:none;color:var(--gold)}
+.aud{border-radius:var(--r-lg);padding:20px;min-height:300px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;position:relative;overflow:hidden;isolation:isolate}
+.aud h3{font-size:20px;line-height:1.25}
+.aud p{font-size:13px;line-height:1.5}
+.aud .tag{font-size:12px;font-weight:500;letter-spacing:.04em}
+.aud.gold{background:var(--gold-soft);color:var(--ink)}
+.aud.gold p{color:#5b5440}
+.aud.photo{color:#fff}
+.aud.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.aud.photo::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(13,34,64,.15),rgba(13,34,64,.85))}
+.aud.photo p{color:rgba(255,255,255,.8)}
+.aud.light{background:var(--navy-2)}
+.aud.light p{color:rgba(255,255,255,.7)}
+.aud .thumb{width:100%;height:110px;border-radius:12px;object-fit:cover}
+.band-note{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 24px;padding:16px 8px 0;border-top:1px solid rgba(255,255,255,.12);font-size:13px;color:rgba(255,255,255,.6)}
+.band-note a{color:var(--gold);font-weight:500;text-decoration:none}
+
+/* ───── Learning approach (scale section) ───── */
+.scale{background:var(--panel);padding-block:80px;padding-inline:max(var(--side),calc((100% - 1200px)/2));position:relative;overflow:hidden}
+.scale .head{margin-bottom:28px}
+.scale .head .label{grid-column:1/span 3}
+.scale .watermark{position:absolute;right:calc(max(var(--side),(100% - 1200px)/2) + 24px);top:182px;font-size:150px;font-weight:600;letter-spacing:-.04em;line-height:1;color:rgba(255,255,255,.5);mix-blend-mode:soft-light;pointer-events:none;z-index:2}
+.scale-photo{position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:460px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:24px;isolation:isolate}
+.scale-photo > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.scale-photo::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(13,34,64,.45),rgba(13,34,64,0) 55%)}
+.big-card{width:230px;flex:none;border-radius:var(--r-lg);background:rgba(13,34,64,.92);color:#fff;padding:18px;display:grid;gap:10px}
+.big-card .n{white-space:nowrap;font-size:44px;line-height:1;font-weight:500;letter-spacing:-.03em}
+.big-card p{font-size:12px;line-height:1.45;color:rgba(255,255,255,.7)}
+.big-card .pill{justify-self:start;background:var(--gold);font-size:11px}
+.steps{display:flex;gap:10px;list-style:none;margin:0;padding:0}
+.steps li{width:150px;border-radius:16px;padding:14px;background:rgba(247,245,239,.92);color:var(--ink)}
+.steps li:first-child{background:var(--gold-soft)}
+.steps b{display:block;font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1}
+.steps strong{display:block;font-weight:500;font-size:14px;margin-top:8px}
+.steps span{display:block;font-size:11.5px;line-height:1.4;color:var(--muted);margin-top:4px}
+
+/* ───── Future direction (bento) ───── */
+.bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
+.bento-left{grid-column:1/span 5;display:grid;gap:22px;align-content:center}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{font-size:12px;padding:5px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);background:var(--white)}
+.bento-left h2{font-size:32px;line-height:38px}
+.bento-left p{font-size:14px;line-height:1.6;color:var(--muted);max-width:420px}
+.bento-grid{grid-column:6/span 7;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{border-radius:var(--r-lg);padding:20px;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;text-decoration:none;background:var(--white)}
+.tile.gold{background:var(--gold-soft)}
+.tile h3{font-size:18px;line-height:1.3}
+.tile p{font-size:13px;line-height:1.5;color:var(--muted);margin-top:8px}
+.tile.gold p{color:#5b5440}
+.tile .foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.status{font-size:11px;line-height:1.35;font-weight:500;color:var(--maroon);max-width:170px}
+.tile-photo{border-radius:var(--r-lg);overflow:hidden;min-height:200px;position:relative}
+.tile-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* ───── Enquiry ───── */
+.enquiry{background:var(--panel);border-radius:var(--r-xl);padding:12px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.enquiry-text{padding:36px 28px 32px 28px;display:flex;flex-direction:column;gap:20px;justify-content:center}
+.enquiry-text h2{font-size:32px;line-height:38px}
+.enquiry-text p{font-size:14.5px;line-height:1.6;color:var(--muted);max-width:460px}
+.enquiry-photo{border-radius:var(--r-lg);overflow:hidden;min-height:340px;position:relative}
+.enquiry-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.enquiry-photo .pill{position:absolute;left:16px;bottom:16px}
+
+/* ───── Footer ───── */
+.footer{margin-top:80px;background:var(--navy);color:#fff}
+.footer .container{padding-block:56px 28px}
+.f-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.f-brand{grid-column:1/span 5;display:grid;gap:16px;align-content:start}
+.f-brand img{width:84px;height:84px;border-radius:50%;background:#fff}
+.f-brand p{font-size:13.5px;color:rgba(255,255,255,.65);max-width:340px;line-height:1.55}
+.f-col{grid-column:span 2}
+.f-col.wide{grid-column:span 3}
+.f-col h4{margin:0 0 12px;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
+.f-col ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.f-col a{display:inline-block;padding:5px 0;font-size:14px;color:rgba(255,255,255,.75);text-decoration:none}
+.f-col a:hover{color:#fff}
+.f-col p{font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.55}
+.f-bottom{margin-top:48px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;font-size:12.5px;color:rgba(255,255,255,.55)}
+
+/* ───── Responsive ───── */
+@media (max-width:1280px){:root{--side:64px}}
+@media (max-width:1100px){
+  .nav,.header .btn{display:none}
+  .menu-btn{display:inline-flex}
+  .band{grid-template-columns:1fr 1fr 1fr}
+  .band-text{grid-column:1/-1}
+  .bento-left,.bento-grid{grid-column:1/-1}
+}
+@media (max-width:1024px){:root{--side:40px}
+  .intro-left{grid-column:1/span 3}.intro-text{grid-column:4/span 9;font-size:24px}.intro-right{display:none}
+  .head .label{grid-column:1/-1;padding-top:0}.head h2{grid-column:1/span 7}.head .aside{grid-column:8/span 5}
+  .head{gap:12px 24px}
+  .scale .watermark{display:none}
+  .scale-photo{flex-direction:column;align-items:stretch}
+  .steps{flex-wrap:wrap}.steps li{flex:1 1 150px}
+  .big-card{width:auto}
+}
+@media (max-width:767px){
+  :root{--side:20px}
+  body{font-size:16px}
+  .sec{padding-block:40px}
+  .header .container{min-height:68px}
+  .logo small{display:none}
+  .hero{padding:100px max(20px,env(safe-area-inset-left,0px)) 24px;min-height:0}
+  .hero h1{font-size:36px;line-height:40px}
+  .hero::before{background:linear-gradient(180deg,rgba(247,245,239,.9) 0%,rgba(247,245,239,.8) 50%,rgba(247,245,239,0) 85%)}
+  .hero-bottom{flex-direction:column;align-items:stretch;margin-top:120px}
+  .hero-card{width:100%}
+  .hero-link{align-self:flex-start}
+  .hero-cta .btn{width:100%;justify-content:space-between}
+  .intro{grid-template-columns:1fr}
+  .intro-left{grid-column:1;grid-template-columns:auto 1fr;align-items:center;gap:16px}
+  .intro-left > img{max-width:96px}
+  .intro-text{grid-column:1;font-size:21px}
+  .head{grid-template-columns:1fr;margin-bottom:24px}
+  .head .label,.head h2,.head .aside{grid-column:1}
+  .head h2,.bento-left h2,.enquiry-text h2{font-size:28px;line-height:34px}
+  .cards{grid-template-columns:1fr}
+  .band{grid-template-columns:1fr;padding:24px 16px}
+  .aud{min-height:240px}
+  .scale{padding:40px max(20px,env(safe-area-inset-left,0px))}
+  .scale-photo{min-height:0;padding:14px;padding-top:200px}
+  .steps li{flex:1 1 100%}
+  .bento-grid{grid-template-columns:1fr}
+  .enquiry{grid-template-columns:1fr}
+  .enquiry-text{padding:24px 14px}
+  .enquiry-photo{min-height:240px}
+  .f-brand,.f-col,.f-col.wide{grid-column:1/-1}
+  .f-col{grid-column:span 6}
+  .f-grid{gap:28px 24px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+
+<!-- ═════ Header (shared across pages) ═════ -->
+<header class="header">
+  <div class="container" style="position:relative">
+    <a class="logo" href="index.html" aria-label="ADAM Institute of Management and Technology — Home">
+      <img src="images/shield.png" alt="" width="34" height="40">
+      <span><b>ADAM</b><small>Institute of Management<br>and Technology</small></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="programs.html">Programs</a>
+      <a href="facilities.html">Facilities</a>
+      <a href="innovation.html">Innovation</a>
+      <a href="collaborations.html">Collaborations</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="btn" href="contact.html">Make an enquiry <span class="arr" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="drawer">Menu <span aria-hidden="true"><i></i><i></i></span></button>
+    <div class="drawer" id="drawer" hidden>
+      <a href="index.html" aria-current="page">Home</a><a href="about.html">About Us</a><a href="programs.html">Programs</a><a href="facilities.html">Facilities</a><a href="innovation.html">Innovation</a><a href="collaborations.html">Collaborations</a><a href="contact.html">Contact</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ═════ 01 Hero ═════ -->
+<section aria-labelledby="h1">
+  <div class="hero">
+    <video class="bg" src="images/herovideo.mp4" poster="images/poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+    <div class="hero-spacer" aria-hidden="true"></div>
+    <div class="hero-main">
+      <h1 id="h1">Build skills. <span class="soft">Explore possibilities.</span></h1>
+      <p class="hero-text">Management and technology learning with a practical purpose. Discover ADAM Institute’s educational focus and enquire about current opportunities.</p>
+      <div class="hero-cta">
+        <a class="btn" href="programs.html">Explore program areas <span class="arr" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+        <span class="pill"><i aria-hidden="true"></i>Program availability to be confirmed</span>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <a class="hero-link" href="contact.html"><span class="circle" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Make an enquiry</a>
+      <a class="hero-card" href="contact.html">
+        <div class="top">
+          <div><b>Not sure where to begin?</b><p>Tell us your background and goals, and we’ll confirm what is currently available.</p></div>
+          <span class="circle" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <img src="images/herocard.jpg" alt="Two students reading together outdoors">
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Intro statement -->
+<section class="container sec" aria-label="About ADAM">
+  <div class="intro">
+    <div class="intro-left">
+      <span class="label"><img src="images/shield.png" alt="">ADAM Institute</span>
+      <img src="images/intro1.jpg" alt="Curved shelves of a library">
+    </div>
+    <p class="intro-text">ADAM Institute of Management and Technology Private Limited focuses on management and information technology education. <span class="soft">Our direction brings together technical knowledge, business understanding and practical learning. Explore the areas we aim to support, then contact us to confirm current availability.</span></p>
+    <div class="intro-right"><img src="images/intro2.jpg" alt="Students discussing work around a laptop"></div>
+  </div>
+</section>
+
+<!-- ═════ 02 Learning focus ═════ -->
+<section class="container" aria-labelledby="focus-h">
+  <div class="head">
+    <span class="label"><img src="images/shield.png" alt="">Learning focus</span>
+    <h2 id="focus-h">Find your area <span class="soft">of interest</span></h2>
+    <p class="aside">These are broad areas within our educational focus. Specific courses, entry requirements and schedules will be published after confirmation.</p>
+  </div>
+  <div class="cards">
+    <a class="card" href="programs.html#management">
+      <div class="ph"><img src="images/f1.jpg" alt="A team discussing ideas in a bright office"><span class="pill"><i aria-hidden="true"></i>Area of focus</span></div>
+      <div class="row"><div><h3>Management</h3><p>Business principles, communication and workplace problem-solving.</p></div><span class="circle" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    <a class="card" href="programs.html#software">
+      <div class="ph"><img src="images/f2.jpg" alt="A developer writing code on a laptop"><span class="pill"><i aria-hidden="true"></i>Area of focus</span></div>
+      <div class="row"><div><h3>Software &amp; computer technology</h3><p>Digital foundations and software development.</p></div><span class="circle" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    <a class="card" href="programs.html#networking">
+      <div class="ph"><img src="images/f3.jpg" alt="A technician working on network equipment" style="object-position:center 35%"><span class="pill"><i aria-hidden="true"></i>Area of focus</span></div>
+      <div class="row"><div><h3>Hardware &amp; networking</h3><p>The systems that connect devices and people.</p></div><span class="circle" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </a>
+  </div>
+  <div class="after">
+    <a class="btn" href="programs.html">Explore program areas <span class="arr" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+  </div>
+</section>
+
+<!-- ═════ 03 Who it is for ═════ -->
+<section class="container sec" aria-labelledby="aud-h">
+  <div class="band">
+    <div class="band-text">
+      <h2 id="aud-h">Different starting points. <span>A shared ambition.</span></h2>
+      <p>For students, professionals and organisations, ADAM’s proposed approach connects subject knowledge with <mark>practical contexts</mark>. Tell us your background and goals so we can discuss whether a confirmed offering is suitable.</p>
+    </div>
+    <article class="aud gold">
+      <span class="tag">Students</span>
+      <div><h3>Exploring your next step</h3><p style="margin-top:8px">Compare areas of study before choosing a direction.</p></div>
+      <img class="thumb" src="images/aud1.jpg" alt="Students smiling in a lecture hall">
+    </article>
+    <article class="aud photo">
+      <img src="images/aud2.jpg" alt="A young professional standing outside an office building" style="object-position:center 25%">
+      <span class="tag">Professionals</span>
+      <div><h3>Developing your skills</h3><p style="margin-top:8px">Build management or technical ability alongside your work.</p></div>
+    </article>
+    <article class="aud light">
+      <span class="tag" style="color:var(--gold)">Organisations</span>
+      <div><h3>Considering team learning</h3><p style="margin-top:8px">Discuss whether learning for your team could fit your needs.</p></div>
+      <img class="thumb" src="images/cta.jpg" alt="A team working together around a table">
+    </article>
+    <div class="band-note">
+      <span>An enquiry starts a conversation. It does not confirm admission, employment or a training agreement.</span>
+      <a href="contact.html">Share your goals →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ 04 Learning approach ═════ -->
+<section aria-labelledby="app-h">
+  <div class="scale">
+    <div class="head">
+      <span class="label"><img src="images/shield.png" alt="">Learning approach</span>
+      <h2 id="app-h">Learn through questions, <span class="soft">practice and reflection</span></h2>
+      <p class="aside">Delivery methods, trainer availability and assessment arrangements will be specified for each confirmed program.</p>
+    </div>
+    <div class="watermark" aria-hidden="true">ADAM</div>
+    <div class="scale-photo">
+      <img src="images/inn.jpg" alt="Learners mapping ideas with sticky notes on a table">
+      <div class="big-card">
+        <span class="pill">Proposed approach</span>
+        <span class="n">3 steps</span>
+        <p>Guided instruction, relevant exercises and opportunities to review progress.</p>
+      </div>
+      <ol class="steps">
+        <li><b>01</b><strong>Understand</strong><span>Guided instruction on the key ideas.</span></li>
+        <li><b>02</b><strong>Practise</strong><span>Tasks that connect concepts with real situations.</span></li>
+        <li><b>03</b><strong>Review</strong><span>Look back at progress and what to revisit.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ 05 Future direction ═════ -->
+<section class="container sec" aria-labelledby="fut-h">
+  <div class="bento">
+    <div class="bento-left">
+      <span class="label"><img src="images/shield.png" alt="">Future direction</span>
+      <div class="chips"><span>Facilities</span><span>Research</span><span>Collaboration</span><span>Startup support</span></div>
+      <h2 id="fut-h">Space for ideas <span class="soft">to grow</span></h2>
+      <p>The institute’s objectives include facilities, research and innovation infrastructure, collaboration and startup support. These ambitions guide future development. Visit the Facilities and Innovation pages to explore the concepts and check their status.</p>
+      <div><a class="btn" href="facilities.html">Explore facilities <span class="arr" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
+    </div>
+    <div class="bento-grid">
+      <a class="tile gold" href="facilities.html">
+        <div><h3>Facilities</h3><p>Learning spaces and infrastructure the institute plans to develop.</p></div>
+        <div class="foot"><span class="status">MOA objective – operational status unconfirmed</span><span class="circle" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </a>
+      <div class="tile-photo"><img src="images/fac.jpg" alt="A modern campus building with glass facades"></div>
+      <div class="tile-photo"><img src="images/inn2.jpg" alt="A team presenting ideas at a whiteboard" style="object-position:center 30%"></div>
+      <a class="tile" href="innovation.html">
+        <div><h3>Innovation</h3><p>Research, collaboration and startup support the institute aims to build.</p></div>
+        <div class="foot"><span class="status">MOA objective – operational status unconfirmed</span><span class="circle" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ 06 Enquiry ═════ -->
+<section class="container" aria-labelledby="enq-h">
+  <div class="enquiry">
+    <div class="enquiry-text">
+      <span class="label"><img src="images/shield.png" alt="">Enquiries</span>
+      <h2 id="enq-h">Start with <span class="soft">a conversation</span></h2>
+      <p>Interested in a subject or exploring training for a team? Share your area of interest and the questions you would like answered. We will use the details you provide to respond to your enquiry once the contact channel is activated.</p>
+      <div><a class="btn" href="contact.html">Make an enquiry <span class="arr" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
+    </div>
+    <div class="enquiry-photo">
+      <img src="images/enq.jpg" alt="Students working together at an outdoor table">
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ═════ Footer (shared across pages) ═════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="f-grid">
+      <div class="f-brand">
+        <img src="images/logo.jpg" alt="ADAM Institute of Management and Technology logo" width="84" height="84">
+        <p>ADAM Institute of Management and Technology Private Limited. Learn | Lead | Innovate | Belong.</p>
+      </div>
+      <div class="f-col"><h4>Explore</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="programs.html">Programs</a></li><li><a href="facilities.html">Facilities</a></li></ul></div>
+      <div class="f-col"><h4>Institute</h4><ul><li><a href="innovation.html">Innovation</a></li><li><a href="collaborations.html">Collaborations</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy.html">Privacy Notice</a></li></ul></div>
+      <div class="f-col wide"><h4>Contact</h4><p>Verified address, phone and email will be published here once approved.</p></div>
+    </div>
+    <div class="f-bottom"><span>© 2026 ADAM Institute of Management and Technology Private Limited</span><span>Program details are subject to confirmation.</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var b=document.getElementById('menuBtn'),d=document.getElementById('drawer');
+  function set(o){b.setAttribute('aria-expanded',o);d.hidden=!o}
+  var h=document.querySelector('.header');function sc(){h.classList.toggle('scrolled',window.scrollY>20)}sc();window.addEventListener('scroll',sc,{passive:true});
+  b.addEventListener('click',function(){set(b.getAttribute('aria-expanded')!=='true')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)});
+})();
+</script>
+
+</body>
+</html>
