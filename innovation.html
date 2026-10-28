@@ -223,6 +223,7 @@ a:hover > .circle, a:hover .circle{transform:rotate(-45deg)}
 @media (max-width:1100px){
   .nav,.header .btn{display:none}
   .menu-btn{display:inline-flex}
+  .drawer{max-height:calc(100vh - 84px);max-height:calc(100dvh - 84px);overflow-y:auto;overscroll-behavior:contain}
   .band{grid-template-columns:1fr 1fr 1fr}
   .band-text{grid-column:1/-1}
   .bento-left,.bento-grid{grid-column:1/-1}
@@ -464,6 +465,7 @@ a:hover > .circle, a:hover .circle{transform:rotate(-45deg)}
   .journey li{flex-direction:row;text-align:left;padding:0}
   .journey li::before{order:3;margin-left:auto}
   .row2{grid-template-columns:1fr}
+  .field input,.field select,.field textarea{font-size:16px}
   .iform{padding:20px 10px}
 }
 
